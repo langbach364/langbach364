@@ -1,0 +1,56 @@
+#include <iostream>
+#include <stdsys.h>
+
+// code by Lang Bach
+
+using namespace std;
+
+int main () {
+    int a,b,c;
+    UTF_8;
+
+    textcolor(Red);
+
+    print("Trái tim to lớn của cậu dành cho tớ :)))): ", 500, White);
+    cin >> c;
+
+    while (c < 10) {
+      print("Phải lớn hơn 10 cơ cho cậu nhập lại á ko là sẽ ko bít bí mật này đâu :))): ", 500, White);
+      cin >> c;
+    }
+
+    print("Của tớ auto to hơn cậu nha :))))", 500, White);
+    cout << endl;
+
+    for (a = c / 2 ; a < c ; a += 2) {
+        for (b = 1 ; b < c - a ; b += 2) {
+            print(" ", 5, Red);
+        }
+        for (b = 1 ; b <= a ; b++) {
+
+            print("*", 5, Red);
+        }
+        for (b = 0 ; b <= c - a ; b++) {
+            print(" ", 5, Red);
+        }
+        for (b = 1 ; b <= a ; b++) {
+            print("*", 5, Red);
+        }
+        cout << endl;
+    }
+
+    for (a = c ; a >= 0 ; a--) {
+        for (b = a ; b <= c ; b++) {
+            print(" ", 5, Red);
+        }
+        for (b = 1 ; b <= ((a * 2) - 1) ; b++) {
+           print("*", 5, Red);
+        }
+        cout << endl;
+    }
+    print("Code by Lang Bach", 0 , White);
+    cout << endl;
+
+    pause;
+    return 0;
+}
