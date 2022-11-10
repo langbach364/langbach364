@@ -23,7 +23,7 @@ int main () {
     cout << endl;
 
     for (a = c / 2 ; a < c ; a += 2) {
-        for (b = 1 ; b < c - a ; b += 2) {
+        for (b = 1 ; b <= c - a ; b += 2) {
             print(" ", 5, Red);
         }
         for (b = 1 ; b <= a ; b++) {
