@@ -100,24 +100,19 @@ void Tim_ten(SV a[], int n) {
     if (check == true) cout << "ko thay" << endl;
 }
 
-string Ten(string name) {
+vector <string> Ten(string name) {
     vector <string> v;
     stringstream ss(name);
-    string tmp,save;
+    string tmp;
     while(ss >> tmp) {
         v.push_back(tmp);
     }
-    save += v[v.size() - 1];
-    for (int i = 0 ; i < v.size() - 1; i++) {
-        save += v[i];
-        return v[i];
-    }
+    return v;
 }
 
 bool check(SV a, SV b) {
-    string ten1 = Ten(a.ten);
-    string ten2 = Ten(b.ten);
-    return ten1 < ten2;
+    vector <string> v1 = Ten(a.ten), v2 = Ten(a.ten);
+    if (v1.back() != v2.back()) return v1.back() < v2.back();
 }
 
 void Sap_Xep(SV a[] , int n) {
