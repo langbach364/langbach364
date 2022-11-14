@@ -100,16 +100,23 @@ void Tim_ten(SV a[], int n) {
     if (check == true) cout << "ko thay" << endl;
 }
 
-bool check(SV a, SV b) {
-    vector <string> v1, v2;
-    v1.push_back(a.ten);
-    v2.push_back(b.ten);
-    if (v1.back() != v2.back()) return v1.back() < v2.back();
-    int save1 = v1.size(), save2 = v2.size();
-    for (int i = 0 ; i < min(save1,save2) ; i++) {
-        if(v1[i] != v2[i]) return v1[i] < v2[i];
+vector <string> Chuyen_doi(string name) {
+    vector <string> s;
+    stringstream ss;
+    ss << name;
+    string tmp;
+    while(ss >> tmp) {
+        s.push_back(tmp);
     }
-    return save1 < save2;
+    return s;
+}
+bool check (SV a, SV b) {
+    vector <string> v1 = Chuyen_doi(a.ten), v2 = Chuyen_doi(b.ten);
+    int save1 = v1.size(), save2 = v2.size();
+    if (v1.back() != v2.back()) return v1.back() < v2.back();
+    if (save1 < save2) return save1 < save2;
+    if (v1[0] < v2[0]) return v1[0] < v2[0];
+
 }
 
 void Sap_Xep(SV a[] , int n) {
@@ -117,6 +124,7 @@ void Sap_Xep(SV a[] , int n) {
 }
 void Toan_cao1(SV a[], int n) {
     float save = 0;
+    cout << "hoc sinh co diem tin cao nhat: " << endl;
     for (int i = 0 ; i < n ; i++) {
         if (a[i].diem1 > save) save = a[i].diem1;
     }
@@ -129,6 +137,7 @@ void Toan_cao1(SV a[], int n) {
 
 void Tin_cao1(SV a[], int n) {
     float save = 0;
+    cout << "hoc sinh co diem tin cao nhat: " << endl;
     for (int i = 0 ; i < n ; i++) {
         if (a[i].diem2 > save) save = a[i].diem2;
     }
@@ -144,6 +153,7 @@ bool check1(SV a, SV b) {
 }
 void Kt_toan(SV a[], int n) {
     vector <SV> v;
+    cout << "hoc sinh co diem tin > 4: " << endl;
     for (int i = 0 ; i < n ; i++) {
         if (a[i].diem1 >= 5) v.push_back(a[i]);
     }
@@ -159,6 +169,7 @@ bool check2(SV a, SV b) {
 
 void Kt_tin(SV a[], int n) {
     vector <SV> v;
+    cout << "hoc sinh co diem tin > 4: " << endl;
     for (int i = 0 ; i < n ; i++) {
         if (a[i].diem2 >= 5) v.push_back(a[i]);
     }
@@ -228,6 +239,7 @@ int main () {
             }
             case 6: {
                 Sap_Xep(a,n);
+                cout << "Sap Xep thanh cong" << endl; 
                 break;
             }
             case 7: {
