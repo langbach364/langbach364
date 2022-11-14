@@ -248,12 +248,13 @@ int main () {
             }
             case 11: {
                 Xuat_file(a,n);
-                cout << "xuat file txt thanh cong" << endl;
+                cout << "Xuat file QLSV.txt thanh cong" << endl;
                 break;
             }
             case 12: {
                 string s;
                 Ghi;
+                cout << "In file QLSV.txt thanh cong" << endl;
                 while(getline(f,s)) {
                     cout << s << endl;
                 }
