@@ -100,19 +100,16 @@ void Tim_ten(SV a[], int n) {
     if (check == true) cout << "ko thay" << endl;
 }
 
-vector <string> Ten(string name) {
-    vector <string> v;
-    stringstream ss(name);
-    string tmp;
-    while(ss >> tmp) {
-        v.push_back(tmp);
-    }
-    return v;
-}
-
 bool check(SV a, SV b) {
-    vector <string> v1 = Ten(a.ten), v2 = Ten(a.ten);
+    vector <string> v1, v2;
+    v1.push_back(a.ten);
+    v2.push_back(b.ten);
     if (v1.back() != v2.back()) return v1.back() < v2.back();
+    int save1 = v1.size(), save2 = v2.size();
+    for (int i = 0 ; i < min(save1,save2) ; i++) {
+        if(v1[i] != v2[i]) return v1[i] < v2[i];
+    }
+    return save1 < save2;
 }
 
 void Sap_Xep(SV a[] , int n) {
