@@ -1,0 +1,25 @@
+#include <iostream>
+ 
+using namespace std; 
+ 
+void Di_Chuyen(int n, char a, char b) {
+    cout << "Chuyen dia thu " << n << " tu coc " << a <<" sang coc " << b << endl;
+}
+ 
+void Thu_tu_xep(int n, char A, char B, char C) {
+    if(n == 1) {
+        Di_Chuyen(n,A,C);
+    }
+    else {
+        Thu_tu_xep(n-1,A,C,B); // n lẻ A qua C n chẵn A qua B
+        Di_Chuyen(n,A,C);
+        Thu_tu_xep(n-1,B,A,C);
+    }
+}
+int main () {
+    int n;
+    cin >> n;
+    char a = 'A', b = 'B', c = 'C';
+    Thu_tu_xep(n,a,b,c);
+}
+ 
