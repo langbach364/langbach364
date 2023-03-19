@@ -1,0 +1,231 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+// Tham lam : Greedy
+// Đề bài cái túi
+
+// Tạo cấu cấu tạo của vật phẩm
+struct Item {
+    int money;
+    int weight;
+    float vaule;
+};
+
+// Tạo toán tử hay nói cách khác là định nghĩa
+istream& operator >> (istream &in, Item &i) {
+    in >> i.money >> i.weight;
+}
+
+bool Sort(Item a, Item b) {
+    return a.vaule > b.vaule;
+}
+
+void Greedy() {
+    int n;
+    cin >> n;
+    Item item [n];
+
+    // Nhập vật phẩm đồng thời tính toán và gán giá trị cho vật phẩm
+    for(int i = 0 ; i < n ; i++) {
+        cin >> item[i];
+        item[i].vaule = item[i].money / item[i].weight;
+    }
+
+    sort(item, item + n, Sort);
+
+    int bag;
+    cin >> bag;
+    int save_vaule = 0;
+    int save_money = 0;
+
+    // Tiếp tục lặp đến khi thỏa điều kiện túi phải lớn hơn 0 và túi phải lớn hơn cân nặng có giá trị nhỏ nhất của vật phẩm 
+    while(bag > 0 && bag > item[n - 1].weight) {
+        for(int i = 0 ; i < n ; i++) {
+            // Nếu túi lớn hơn cân nặng vật phẩm thì thực thi lệnh
+            if(bag > item[i].weight) {
+                bag -= item[i].weight;
+                save_vaule += item[i].vaule;
+                save_money += item[i].money;
+            }
+        }
+    }
+    cout << save_money;
+}
+
+// Quy hoạch động : Dynamic Propramming
+// Đề bài cái túi
+int Knapsack_problem(int bag, int money[], int wight[], int n) {
+    // Tạo mảng 2 chiều bằng vector với mảng đầu tối đa là n + 1 và mảng 2 tối đa là bag + 1
+    vector<vector<int>> save(n + 1, vector<int>(bag + 1));
+
+    for(int i = 0 ; i <= n ; i++) {
+        for(int j = 0 ; j <= bag ; j++) {
+            // gán cho save[0][0] = 0 vì lúc đầu chưa có lưu gì cả
+           if(i == 0 || j == 0) save[i][j] = 0;
+
+           // trọng lượng của túi thứ i - 1 tức là trọng lượng vật phẩm đầu tiên nếu i = 1 nhỏ hơn cái túi thì thực thi vòng lặp
+           else if(wight[i - 1] <= bag) {
+
+            // Chừng nào j bằng với trọng lượng với vật phẩm đầu tiên thì cộng vô giá tiền trước đó đã tính vs giá tiền hiện tại 
+            save[i][j] = max(money[i - 1] + save[i - 1][j - wight[i - 1]], save[i - 1][j]);
+           } else {
+            // Nếu vật phẩm nặng hơn cả cái túi vậy chỉ cần gán số tiền trước đó đã tính thôi
+            save[i][j] = save[i - 1][j];
+           }
+        }
+    }
+    // Kết quả cuối cùng bằng cách truy cập số lượng cái túi và cân nặng của túi có thể mang theo là được
+    return save[n][bag];
+}
+
+void Dynamic_propramming() {
+    int bag = 5, n = 5;
+    int money[5] = {100, 200, 300};
+    int wight[5] = {1, 2, 3};
+    cout << Knapsack_problem(bag, money, wight, n);
+}
+
+// Tìm kiếm chiều sâu : Depth First Search(DFS)
+// Đề bài : lettcode bài số 100 sametree
+struct TreeNode {
+    TreeNode* left;
+    TreeNode* right;
+    int vaule;
+};
+
+bool Check_tree(TreeNode* a, TreeNode* b) {
+    // Các điều kiện cần kiểm tra
+    if(a == NULL && b == NULL) return true;
+    if(a != NULL && b == NULL) return false;
+    if(a == NULL && b != NULL) return false;
+
+    // Kiểm tra nhánh trái
+    bool left = Check_tree(a->left, b->left);
+
+    // Kiểm tra nhánh phải
+    bool right = Check_tree(a->right, b->right);
+
+    // Kiểm tra xem nó bằng nhau không nếu bằng thì nó trả về true không thì false
+    bool check_vaule = a->vaule == b->vaule;
+
+
+    // Cả 3 cái đều bằng true tức là thỏa điều kiện 2 cái cây bằng nhau thì nó trả về true
+    if(left && right && check_vaule) {
+        return true;
+    }
+    return false;
+}
+
+TreeNode* leaf(int vaule) {
+    TreeNode* k = new TreeNode;
+    k->vaule = vaule;
+    k->left = nullptr;
+    k->right = nullptr;
+}
+
+void Depth_First_Search() {
+    TreeNode* a = new TreeNode;
+    TreeNode* b = new TreeNode;
+
+    a->left = leaf(1);
+    a->right = leaf(2);
+    b->left = leaf(1);
+    b->right = leaf(2);
+
+    if(Check_tree(a, b)) {
+        cout << "Giong nhau";
+    } else {
+        cout << "Ko giong nhau";
+    }
+
+}
+
+// Tìm kiếm chiều rộng : Breadth First Search(BFS)
+// Đề bài : lettcode bài số 100 sametree
+bool check_tree(TreeNode* a, TreeNode* b) {
+    queue<TreeNode*> queue_a;
+    queue<TreeNode*> queue_b;
+    // Push 2 cái gốc của cây vào
+    queue_a.push(a);
+    queue_b.push(b);
+
+    // Lặp vòng lặp nếu có cái gốc
+    while(!queue_a.empty() && !queue_b.empty()) {
+        // Lấy phần gốc ra bắt đầu so sánh
+        TreeNode* Node_a = queue_a.front();
+        TreeNode* Node_b = queue_b.front();
+
+        // Vì lấy phần gốc ra nên cần phải xóa
+        queue_a.pop();
+        queue_b.pop();
+
+        // Điều kiện này bỏ qua các câu lệnh dưới nếu bị trỏ đến chỗ không có lá
+        if(Node_a == NULL && Node_b == NULL) continue;
+
+        // 1 trong 2 cái cây, cây nào hết lá trước auto khác cây kia vì nếu giống nhau thì cả 2 cây phải hết cùng lúc
+        if(Node_a == NULL || Node_b == NULL) return false;
+
+        // cây nào có lá giá trị khác lá cây kia thì lập tức trả về false tức là không giống nhau
+        if(Node_a->vaule != Node_b->vaule) return false;
+
+        // bắt đầu push phần nhánh phải và nhánh trái của cây bên này trùng với cây bên kia nếu push sai nhánh sẽ dẫn kết quả sai 
+        queue_a.push(Node_a->left);
+        queue_a.push(Node_a->right);
+        queue_b.push(Node_b->left);
+        queue_b.push(Node_b->right);
+    }
+}
+
+void Breadth_First_Search() { 
+    TreeNode* a = new TreeNode;
+    TreeNode* b = new TreeNode;
+
+    a->left = leaf(1);
+    a->right = leaf(2);
+    b->left = leaf(1);
+    b->right = leaf(3);
+
+    if(check_tree(a, b)) {
+        cout << "Giong nhau";
+    } else {
+        cout << "Khong giong nhau";
+    }
+}
+
+// Tìm kiếm nhị phân : binary_search
+// Đề bài: tìm vị trí của x
+
+void Binary_Search() {
+    int n = 5;
+    int a[n] = {1, 2, 3, 4, 5};
+
+    // Sô cần tìm
+    int x = 5;
+
+    int left = 1;
+    int right = n;
+    int save;
+
+    for(auto i : a) {
+        int middle = (left + right) / 2;
+        // x nhỏ hơn middle chắc chắn x nằm bên trái của mảng
+        if(x < middle) right = middle - 1;
+
+        // x lớn hơn middle chắc chắn x nằm bên phải của mảng
+        else if(x > middle) left = middle + 1;
+
+        // Nếu middle = x tức là x nằm tại vị trí middle
+        else {
+            save = middle;
+        }
+    }
+
+    cout << "Vi tri cua x tai mang a la: " << save;
+}
+int main () {
+    Binary_Search();
+}
