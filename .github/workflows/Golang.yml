@@ -1,0 +1,13 @@
+name: Run commands on Ubuntu
+on: [push]
+
+jobs:
+  run-commands:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Run commands
+        run: |
+          # Add your commands here
+          echo "Running commands on Ubuntu"
