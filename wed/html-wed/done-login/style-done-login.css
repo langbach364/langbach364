@@ -1,0 +1,99 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+:root {
+  --form: #ffffff;
+  --color-word-black: #23262f;
+  --color-word-greyish1: #777e90;
+  --color-word-blue: #3b71fe;
+  --color-word-greyish2: #b1b5c4;
+}
+
+.heading {
+  margin-top: 96px;
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-size: 40px;
+}
+
+.name-city {
+  margin-top: 10px;
+  height: 75px;
+  background-color: var(--form);
+  border: 0.5px solid #e6e8ec;
+  box-shadow: 0px 20px 60px -6px rgba(40, 40, 40, 0.08);
+  border-radius: 9px;
+  padding: 12px 50px 12px 20px;
+  color: var(--color-word-greyish1);
+}
+
+.check-time {
+  margin-top: 26px;
+  display: flex;
+  gap: 20px;
+}
+.location-information-form {
+  height: 937px;
+  width: 1400px;
+  margin-left: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.star-date,
+.end-date {
+  width: 450px;
+  background-color: var(--form);
+  border: 0.5px solid #e6e8ec;
+  box-shadow: 0px 20px 60px -6px rgba(40, 40, 40, 0.08);
+  border-radius: 9px;
+  padding: 12px 20px;
+  color: var(--color-word-greyish1);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  height: 75px;
+}
+
+.create-trip {
+  display: block;
+  margin-top: 30px;
+  height: 70px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: var(--color-word-blue);
+  margin-bottom: 20px;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  font-size: 32px;
+  align-items: center;
+  text-decoration: none;
+}
+
+.infomation {
+  display: block;
+  margin-right: 112px;
+  font-weight: 500;
+  font-size: 32px;
+}
+
+.block-infomation {
+    margin: 0 auto;
+    margin: auto;
+    display: flex;
+}
+
+.image {
+  width: 750px;
+  height: 700px;
+  object-fit: cover;
+}
+

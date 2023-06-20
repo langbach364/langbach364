@@ -1,0 +1,39 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge')
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  title LangBach
+  link(rel='stylesheet', href='./style-index.css')
+  link(rel='preconnect', href='https://fonts.googleapis.com')
+  link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin='')
+  link(href='https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap', rel='stylesheet')
+body
+  .login-form
+    .heading
+      .content-star
+        h2.start Gets started
+        .sign-up-content Dont have an account? Sign up
+      .icon
+        .icon-list
+          a.icon-form-facebook(href='https://www.facebook.com/lang.bach.96343/')
+            img.icon-facebook(src='./image/facebook.png')
+          a.icon-form-google(href='https://www.google.com/')
+            img.icon-google(src='./image/google.png')
+          a.icon-form-twitter(href='https://twitter.com/?lang=vi')
+            img.icon-twitter(src='./image/twitter.png')
+      .login-with-email or login with email
+      .login
+        .content-login
+          .email-login
+            .email Email
+            .import-email Email Address
+          .password-login
+            .password Password
+            .import-password Password
+          .check-password
+            img.signal(src='./image/input.png')
+            .input-remember Remember me
+            a.forgot-password(href="./forget-password/forget-password.html") Forgot your password?
+      a.link-sign-in(href='./done-login/done-login.html')
+        .sign-in sign in
