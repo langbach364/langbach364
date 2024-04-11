@@ -8,8 +8,8 @@ import (
 	"errors"
 )
 
-func validate_And_Create_Token(query query, body []byte) error {
-    if !Structure_query(query.Query, "insert") {
+func validate_And_Create_Token(query query, body []byte, command string) error {
+    if !Structure_query(query.Query, command) {
         return errors.New("query is not allowed")
     }
 
@@ -49,7 +49,7 @@ func insert_Handler(dbInfo *DBInfo) http.HandlerFunc {
 				err = json.Unmarshal(body, &query)
 				check_err(err)
 
-				err = validate_And_Create_Token(query, body)
+				err = validate_And_Create_Token(query, body, "insert")
                 if err != nil {
                     http.Error(w, err.Error(), http.StatusMethodNotAllowed)
                     return
@@ -75,7 +75,7 @@ func select_Handler(dbInfo *DBInfo) http.HandlerFunc {
 				err = json.Unmarshal(body, &query)
 				check_err(err)
 
-				err = validate_And_Create_Token(query, body)
+				err = validate_And_Create_Token(query, body, "select")
                 if err != nil {
                     http.Error(w, err.Error(), http.StatusMethodNotAllowed)
                     return
@@ -127,7 +127,7 @@ func delete_Handler(dbInfo *DBInfo) http.HandlerFunc {
 				err = json.Unmarshal(body, &query)
 				check_err(err)
 
-				err = validate_And_Create_Token(query, body)
+				err = validate_And_Create_Token(query, body, "delete")
                 if err != nil {
                     http.Error(w, err.Error(), http.StatusMethodNotAllowed)
                     return
@@ -156,7 +156,7 @@ func update_Handler(dbInfo *DBInfo) http.HandlerFunc {
 				err = json.Unmarshal(body, &query)
 				check_err(err)
 
-				err = validate_And_Create_Token(query, body)
+				err = validate_And_Create_Token(query, body, "update")
                 if err != nil {
                     http.Error(w, err.Error(), http.StatusMethodNotAllowed)
                     return
